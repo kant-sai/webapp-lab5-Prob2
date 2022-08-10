@@ -1,44 +1,49 @@
-//-------the loop of prompt input to enter only positive number.------------------------
-PromptInputLoop:for (;;) {
-var text = prompt('Enter a positive integer');
-var n = promptFilter(text); // bring input to function promptFilter to sort some charecter that not necessery out
+var positiveInt = [];
+var n;
+var text;
 
-//------------ storage variable ------------------------------------------------------
-var setOfprime = [];
-    if (!isNaN(n)&&n>0) break;  // if value is not null and more than 0 will be store in this variable
-}
-
-//-----------Sort some character.---------------------------------
+// //-----------Sort some character.---------------------------------
 function promptFilter(value) {
-    if (/^[-+]?(\d+|Infinity)$/.test(value)) {  // tests for a match in a string if it finds a match covert it to int but it is not found return it to non
-        return parseInt(value)} 
-    else {
-        return NaN
-    }
+    (/^[-+]?(\d+|Infinity)$/.test(value))  // tests for a match in a string if it finds a match covert it to int but it is not found return it to non
+        return Number(value)
 }
 
-//----------------Check the input that have the prime numbers or not.----------------------
-function isPrime(n) {
-    for (let i = 2; n>i; i++) {
-        if (n % i == 0) {
-            return false;
-        }
-    }
-    return true;
-}
-    
+//--------------------function to loop to input prompt that will break if input is negative number---------------------
+function readInput () {
+    PromptInputLoop:for (;;) {
+        var text = prompt('Enter an integer (a negative integer to quit)');
+        var n = promptFilter(text); // bring input to function promptFilter to sort some charecter 
+           if ( n < 0) {
+            break;
+           } else if (n>0 && !isNaN(n)) {
+            positiveInt.push(n);
+            continue;
+           }
+    } return positiveInt;
+} 
 
-//------------------------ Show the prime numbers of the input number.---------------------
-function showPrime(n) {
-    for (let i = 2; n>i; i++){
-        if(!isPrime(i))               
-            continue;                // breaks one iteration (in the loop) 
-                else if(isPrime(i)){
-                setOfprime.push(i)   // push value that match function isPrime to store in var setOfprime = [];
-            }   
-    }
-alert("The prime numbers of " + n + ' are '+ setOfprime)
+//---------------------arrow function to calculated Max, Min, Avg-------------------------------
+const minInt = (list) => Math.min.apply(Math,list);
+const maxInt = (list) => Math.max.apply(Math,list);
+const sumInt = (list) => list.reduce((a,b) => a + b, 0);
+const avgInt = (list) => sumInt(list)/list.length;
+
+//---------------------function to display formation output------------------------------------
+function displayStats () {
+    (positiveInt.length > 0)?
+    alert ('For the list ' + list + ", the average is " + avgInt(list) + ", the minimum is " + minInt(list) + ", and the maximum is " + maxInt(list)):
+    alert ('For the list ' + 'empty' + ", the average is " + 0 + ", the minimum is " + 0 + ", and the maximum is " + 0);
 }
 
-showPrime(n); // show output of this function
+//--------------show output--------------------------------------------------------------------
+list = readInput(); 
+displayStats(list);
+
+
+
+
+
+
+
+
 
